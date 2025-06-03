@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Sample.Utils.Extensions;
 
 public static class StringExtensions
@@ -12,5 +14,12 @@ public static class StringExtensions
                     ? "_" + character
                     : character.ToString()))
                 .ToLower();
+    }
+
+    public static string TrimJson(this string value)
+    {
+        if (value.IsNullorEmpty()) return value;
+
+        return Regex.Replace(value, "(\"(?:[^\"\\\\]|\\\\.)*\")|\\s+", "$1");
     }
 }
