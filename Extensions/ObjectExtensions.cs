@@ -7,10 +7,10 @@ public static class ObjectExtensions
 
     public static bool IsNotNull(this object value)
         => value != null;
-    
+
     public static bool IsNullorEmpty<T>(this IEnumerable<T> value)
         => value == null || value.ToList().Count <= 0;
-    
+
     public static IEnumerable<T> GetValueOrDefault<T>(this IEnumerable<T> items)
         => items ?? new List<T>();
 
@@ -45,4 +45,10 @@ public static class ObjectExtensions
         try { return new Guid(item.ToString()); }
         catch { return Guid.Empty; }
     }
+    
+    public static bool IsNullGuid(this Guid value)
+        => value == default;
+    
+    public static bool IsNullGuid(this Guid? value)
+        => value.GetValueOrDefault().IsNullGuid();
 }
